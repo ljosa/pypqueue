@@ -3,7 +3,7 @@ import os.path
 import shutil
 import tempfile
 import unittest
-import pqueue
+import pypqueue
 
 def make_queue(d):
     for subdir in ["tmp", "new", "cur", "done", "failed"]:
@@ -15,7 +15,7 @@ class SubmitTest(unittest.TestCase):
         d = tempfile.mkdtemp(prefix="pypqueue_test_submit")
         try:
             make_queue(d)
-            pqueue.submit(d, 'myjob', spec='myspec')
+            pypqueue.submit(d, 'myjob', spec='myspec')
             new_jobs = os.listdir(os.path.join(d, "new"))
             self.assertEqual(len(new_jobs), 1)
             job_name = new_jobs[0]

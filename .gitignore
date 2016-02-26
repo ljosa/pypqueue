@@ -1,5 +1,5 @@
 *.pyc
-/pqueue.egg-info
+/pypqueue.egg-info
 /dist
 /build
 
