@@ -1,3 +1,4 @@
+import glob
 import os.path
 import tempfile
 
@@ -46,3 +47,17 @@ def submit(qdir, job_prefix, **kwargs):
     for k, v in kwargs.items():
         j.set(k, v)
     j.submit()
+
+def get_jobs(qdir, job_prefix, state):
+    """ Get all jobs with a particular state matching the prefix
+
+    Returns a list of Job objects.
+
+    """
+    assert state in ['new', 'failed', 'done']
+    q = Pqueue(qdir)
+    return [Job(q, os.path.join(qdir, state, name))
+            for name in os.listdir(os.path.join(qdir, state))
+            if name.startswith(job_prefix)]
+
+        
